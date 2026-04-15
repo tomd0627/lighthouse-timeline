@@ -1,4 +1,10 @@
-import TimelineDashboard from "@/components/TimelineDashboard";
+import dynamic from "next/dynamic";
+import LoadingTimeline from "@/components/LoadingTimeline";
+
+const TimelineDashboard = dynamic(
+  () => import("@/components/TimelineDashboard"),
+  { loading: () => <LoadingTimeline /> },
+);
 
 export default function HomePage() {
   return (

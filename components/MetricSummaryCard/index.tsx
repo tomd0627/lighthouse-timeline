@@ -47,7 +47,7 @@ export default function MetricSummaryCard({
         {delta && (
           <span
             className="ml-2 text-xs font-medium font-mono"
-            style={{ color: isImprovement ? BAND_COLORS.good : isRegression ? BAND_COLORS.poor : "#94a3b8" }}
+            style={{ color: isImprovement ? BAND_COLORS.good : isRegression ? BAND_COLORS.poor : "var(--color-text-subtle)" }}
           >
             {delta}
           </span>
