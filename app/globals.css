@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+/* ─── Tailwind v4 CSS-first configuration ─── */
+/* No 'inline' — utilities use var() refs so runtime theme overrides cascade correctly */
+@theme {
+  /* Typography */
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "Cascadia Code", "Courier New", monospace;
+
+  /* Background layers */
+  --color-bg-base: #060a14;
+  --color-bg-surface: #0d1420;
+  --color-bg-raised: #131d2e;
+  --color-bg-hover: #1a2640;
+
+  /* Primary accent — electric teal-blue */
+  --color-accent: #22d3ee;
+  --color-accent-dim: #0ea5e9;
+  --color-accent-muted: rgba(34, 211, 238, 0.12);
+  --color-accent-hover: rgba(34, 211, 238, 0.2);
+
+  /* Text */
+  --color-text-primary: #f0f6ff;
+  --color-text-muted: #94a3b8;
+  --color-text-subtle: #64748b;
+
+  /* Per-metric chart line colors */
+  --color-metric-lcp: #38bdf8;
+  --color-metric-cls: #a78bfa;
+  --color-metric-inp: #fb923c;
+  --color-metric-ttfb: #34d399;
+
+  /* CWV status band colors */
+  --color-band-good: #4ade80;
+  --color-band-ni: #fbbf24;
+  --color-band-poor: #f87171;
+
+  /* Border */
+  --color-border: rgba(34, 211, 238, 0.12);
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+}
+
+/* ─── Light mode overrides ─── */
+[data-theme="light"] {
+  --color-bg-base: #f0f4f8;
+  --color-bg-surface: #ffffff;
+  --color-bg-raised: #f8fafc;
+  --color-bg-hover: #e2e8f0;
+
+  --color-accent: #0891b2;
+  --color-accent-dim: #0e7490;
+  --color-accent-muted: rgba(8, 145, 178, 0.1);
+  --color-accent-hover: rgba(8, 145, 178, 0.16);
+
+  --color-text-primary: #0f172a;
+  --color-text-muted: #475569;
+  --color-text-subtle: #94a3b8;
+
+  --color-border: rgba(8, 145, 178, 0.2);
+  --color-border-subtle: rgba(0, 0, 0, 0.07);
+}
+
+/* ─── Base ─── */
+:root {
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent iOS Safari from zooming on input focus */
+@media (max-width: 768px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+/* ─── Global focus style — keyboard navigation ─── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── Skeleton shimmer animation ─── */
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-surface) 25%,
+    var(--color-bg-hover) 50%,
+    var(--color-bg-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* ─── Reduced motion ─── */
+/* JS-driven animations (Recharts, Framer Motion) are gated via the
+   usePrefersReducedMotion hook. Only CSS-only animations need overrides here. */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer {
+    animation: none;
+    background: var(--color-bg-surface);
+  }
+}
+
+/* ─── Scrollbar styling (Webkit) ─── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent-muted);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-hover);
+}
